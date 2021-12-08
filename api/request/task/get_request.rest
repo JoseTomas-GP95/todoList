@@ -1,0 +1,15 @@
+GET http://localhost:3001/tasks
+
+###
+
+GET http://localhost:3001/task/61aee13869051c2f9a4dedc8
+
+###
+
+GET http://localhost:3001/task/61a05920032e24c839b4a0dc
+
+###
+
+GET http://localhost:3001/tasks/61af5e4e9ecf73031c750e05/waiting
+
+###

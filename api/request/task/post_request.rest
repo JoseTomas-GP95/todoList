@@ -1,0 +1,35 @@
+POST http://localhost:3001/task
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxYWYxMjcwYzM5ZDU3MjI3M2Q3MjY1MiIsInVzZXJuYW1lIjoianRncCIsImlhdCI6MTYzODg2MzUzMSwiZXhwIjoxNjM5NDY4MzMxfQ.QAzYzgVu-BkaFlJf_zCUSOtJSwbCZvrY_IFRpVwJ0l0
+
+{
+  "title": "Tarea 1",
+  "author": "JT",
+  "description": "Mensaje 1"
+}
+
+###
+
+POST http://localhost:3001/task
+content-type: application/json
+
+{
+  "title": "titulo 2",
+  "author": "José tomas",
+  "description": "descripción numero 2",
+  "completed": false
+}
+
+###
+
+POST http://localhost:3001/task
+content-type: application/json
+
+{
+  "title": "Imprimir documentos",
+  "author": "Camila Quintero",
+  "description": "Recuerda imprimir el informe",
+  "completed": true,
+}
+
+###

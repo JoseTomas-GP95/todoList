@@ -1,0 +1,11 @@
+PUT http://localhost:3001/task/61a44e1e783337a92cc6ca12
+content-type: application/json
+
+{
+  "title": "Estudiar",
+  "author": "Carmen Alvarado",
+  "description": "Investigar que estudiar",
+  "state": "process"
+}
+
+###

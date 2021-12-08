@@ -1,0 +1,21 @@
+POST http://localhost:3001/user
+content-type: application/json
+
+{
+  "username": "jtgp",
+  "name": "Jose Tomas",
+  "passwordHash": "12345"
+}
+
+###
+
+POST http://localhost:3001/user
+content-type: application/json
+
+{
+  "username": "kruiz",
+  "name": "Karen Daniela",
+  "passwordHash": "54321"
+}
+
+###
