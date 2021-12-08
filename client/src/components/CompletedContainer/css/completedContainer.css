@@ -1,0 +1,11 @@
+.completedContainer {
+  width: 100%;
+  overflow: auto
+}
+
+.completedContainer-title {
+  font-size: 2rem;
+  padding: 1rem;
+  text-align: center;
+  border-bottom: solid 1px grey
+}

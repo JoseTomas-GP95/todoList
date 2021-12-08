@@ -1,0 +1,12 @@
+.inProcessContainer {
+  width: 100%;
+  border-right: solid 1px grey;
+  overflow: auto
+}
+
+.inProcessContainer-title {
+  font-size: 2rem;
+  padding: 1rem;
+  text-align: center;
+  border-bottom: solid 1px grey
+}

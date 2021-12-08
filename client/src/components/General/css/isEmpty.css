@@ -1,0 +1,17 @@
+.isEmpty {
+  display: flex;
+  flex-direction: column;
+  height: 85%;
+  margin: 0rem 1rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.isEmpty-paper {
+  width: 25vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center
+}
+
