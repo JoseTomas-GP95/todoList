@@ -12,7 +12,7 @@ const deleteTasksRouter = require('./controllers/tasks/deleteTasks')
 const postUsersRouter = require('./controllers/users/postUser')
 const loginRouter = require('./controllers/login/loginUser')
 
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 3001
 /* ------------------------------- MIDDLEWARE ------------------------------- */
 app.use(express.json())
 app.use(cors())
