@@ -5,7 +5,7 @@ import { Task } from '../Task/Task'
 import { IsEmpty } from '../General/IsEmpty'
 import './css/inProcessContainer.css'
 
-export const InProcessContainer = ({ process, handleDeleteTask }) => {
+export const InProcessContainer = ({ process, handleDeleteTask, activateDeleteSpinner, compare_id }) => {
   return (
     <div className='inProcessContainer'>
       <div className='inProcessContainer-title'>
@@ -15,7 +15,7 @@ export const InProcessContainer = ({ process, handleDeleteTask }) => {
         process.length > 0
           ? process.map(task => (
           <div key={ task._id }>
-            <Task handleDeleteTask={ handleDeleteTask } task={ task }/>
+            <Task compare_id={ compare_id } activateDeleteSpinner={ activateDeleteSpinner } handleDeleteTask={ handleDeleteTask } task={ task }/>
           </div>
           ))
           : <IsEmpty />

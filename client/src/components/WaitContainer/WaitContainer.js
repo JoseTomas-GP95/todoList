@@ -5,7 +5,7 @@ import { Task } from '../Task/Task'
 import { AddTask } from '../Task/AddTask'
 import { IsEmpty } from '../General/IsEmpty'
 
-export const WaitContainer = ({ waiting, handleClickOpen, handleDeleteTask }) => {
+export const WaitContainer = ({ waiting, handleClickOpen, handleDeleteTask, activateDeleteSpinner, compare_id }) => {
   return (
     <div style={{ width: '100%', borderRight: 'solid 1px grey', overflow: 'auto' }}>
       <div style={{ fontSize: '2rem', padding: '1rem', textAlign: 'center', borderBottom: 'solid 1px grey' }}>
@@ -15,7 +15,7 @@ export const WaitContainer = ({ waiting, handleClickOpen, handleDeleteTask }) =>
         waiting.length > 0
           ? waiting.map(task => (
           <div key={ task._id }>
-            <Task handleDeleteTask={ handleDeleteTask } task={ task }/>
+            <Task compare_id={ compare_id } activateDeleteSpinner={ activateDeleteSpinner } handleDeleteTask={ handleDeleteTask } task={ task }/>
           </div>
           ))
           : <IsEmpty handleClickOpen={ handleClickOpen } waiting={ true }/>

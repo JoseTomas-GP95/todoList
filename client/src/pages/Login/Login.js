@@ -4,6 +4,8 @@ import { Button, CssBaseline, TextField, Link, Grid, Typography } from '@mui/mat
 import { styled } from '@mui/material/styles'
 import { helpUserLogin } from '../../helpers/helpUserLogin'
 import { useNavigate } from 'react-router-dom'
+import { Spinner } from '../../components/General/Spinner'
+
 const useStyles = styled(theme => ({
   root: {
     height: '100vh'
@@ -25,9 +27,11 @@ const useStyles = styled(theme => ({
 
 export const Login = ({ ...props }) => {
   const { root, paper, form, submit } = useStyles(props)
+  const [activateSpinner, setActivateSpinner] = useState(false)
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
+
   const navigate = useNavigate()
 
   const handleDataUser = (event) => {
@@ -41,6 +45,7 @@ export const Login = ({ ...props }) => {
 
   const handleLogin = (event) => {
     event.preventDefault()
+    setActivateSpinner(true)
 
     const credential = {
       username,
@@ -60,7 +65,9 @@ export const Login = ({ ...props }) => {
 
         setUsername('')
         setPassword('')
+        setActivateSpinner(false)
       }).catch(error => {
+        setActivateSpinner(false)
         setErrorMessage('Credenciales inválidas ❌ Intenta de nuevo')
         setTimeout(() => {
           setErrorMessage('')
@@ -86,6 +93,7 @@ export const Login = ({ ...props }) => {
           <Typography component="h1" variant="h5">
             Iniciar sesión
           </Typography>
+
           <form onSubmit={ handleLogin } className={form} noValidate>
             <TextField
               value={ username }
@@ -121,7 +129,7 @@ export const Login = ({ ...props }) => {
               color="primary"
               className={submit}
             >
-              Iniciar sesión
+              { activateSpinner ? <Spinner /> : 'Iniciar sesión' }
             </Button>
             {
               errorMessage ? <p style={{ color: 'red' }}>{ errorMessage }</p> : null

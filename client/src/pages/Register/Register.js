@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { Button, CssBaseline, TextField, Link, Grid, Typography, Container } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import { helpCreateUser } from '../../helpers/helpCreateUser'
+import { useNavigate } from 'react-router-dom'
+import { Spinner } from '../../components/General/Spinner'
 
 const useStyles = styled(theme => ({
   paper: {
@@ -22,12 +24,14 @@ const useStyles = styled(theme => ({
 // eslint-disable-next-line react/prop-types
 export const Register = ({ children, ...props }) => {
   const { paper, form, submit } = useStyles(props)
+  const navigate = useNavigate()
 
   const [name, setName] = useState('')
   const [surname, setSurname] = useState('')
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [message, setMessage] = useState('')
+  const [activateSpinner, setActivateSpinner] = useState(false)
 
   const handleDataUser = (event) => {
     if (event.target.name === 'name') {
@@ -46,6 +50,7 @@ export const Register = ({ children, ...props }) => {
 
   const handleCreateUser = (event) => {
     event.preventDefault()
+    setActivateSpinner(true)
 
     const user = {
       name,
@@ -54,17 +59,32 @@ export const Register = ({ children, ...props }) => {
       passwordHash: password
     }
 
+    // Validacion
+    if(!name || !surname || !username || !password) {
+      setMessage(<h4 style={{ color: 'red' }}>Todos los campos son obligatorios para llenar</h4>)
+      setActivateSpinner(false)
+
+      setTimeout(() => {
+        setMessage('')
+      }, 900)
+      return
+    }
+
     helpCreateUser(user)
       .then(res => {
-        setMessage('Tu cuenta ha sido registada con éxito 👍')
+        setMessage(<h4 style={{ color: 'green' }}>Tu cuenta ha sido registada con éxito 👍</h4>)
         setTimeout(() => {
+          navigate('/login', { replace: true })
           setMessage('')
-        }, 3000)
-
+        }, 900)
+        
         setName('')
         setSurname('')
         setUsername('')
         setPassword('')
+        setActivateSpinner(false)
+      }).catch(error => {
+
       })
   }
 
@@ -134,6 +154,7 @@ export const Register = ({ children, ...props }) => {
                 />
               </Grid>
             </Grid>
+            
             <Button
               type="submit"
               fullWidth
@@ -141,10 +162,11 @@ export const Register = ({ children, ...props }) => {
               color="primary"
               className={submit}
             >
-              Registrarse
+              { activateSpinner ? <Spinner /> : 'Registrarse' }
             </Button>
+
             {
-              message ? <h4 style={{ color: 'green' }}>{ message }</h4> : null
+              message ? message : null
             }
 
             <Grid container justify="flex-end">

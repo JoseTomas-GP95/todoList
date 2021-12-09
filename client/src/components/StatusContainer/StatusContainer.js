@@ -10,15 +10,21 @@ import { InProcessContainer } from '../InProcessContainer/InProcessContainer'
 import { WaitContainer } from '../WaitContainer/WaitContainer'
 import Button from '@mui/material/Button'
 import { useNavigate } from 'react-router-dom'
+import { Spinner } from '../General/Spinner'
 
 export const StatusContainer = () => {
   const [waiting, setWaiting] = useState([])
   const [process, setProcess] = useState([])
   const [completed, setCompleted] = useState([])
   const [open, setOpen] = React.useState(false)
+  const [activateSpinner, setActivateSpinner] = useState(false)
+  const [activateCreateTaskSpinner, setActivateCreateTaskSpinner] = useState(false)
+  const [activateDeleteSpinner, setActivateDeleteSpinner] = useState(false)
+  const [compare_id, setCompare_id] = useState('')
+  const [errorMessage, setErrorMessage] = useState('')
 
+  
   const [title, setTitle] = React.useState('')
-  const [author, setAuthor] = React.useState('')
   const [description, setDescription] = React.useState('')
   const [sendPost, setSendPost] = React.useState('')
   const [user, setUser] = React.useState('')
@@ -36,17 +42,26 @@ export const StatusContainer = () => {
   const handleChangeType = (event) => {
     if (event.target.name === 'title') setTitle(event.target.value)
 
-    if (event.target.name === 'author') setAuthor(event.target.value)
-
     if (event.target.name === 'description') setDescription(event.target.value)
   }
 
   const handleCreateTask = (event) => {
     event.preventDefault()
+    setActivateCreateTaskSpinner(true)
+
+    if(!title || !description) {
+      setErrorMessage('Debes llenar todos los datos')
+
+      setTimeout(() => {
+        setErrorMessage('')
+      }, 2000)
+      setActivateCreateTaskSpinner(false)
+      return 
+    }
 
     const toPost = {
       title,
-      author,
+      author: user?.data?.name,
       description
     }
 
@@ -54,9 +69,9 @@ export const StatusContainer = () => {
 
     helpPostTask(token, toPost)
       .then(response => {
+      setActivateCreateTaskSpinner(false)
         setSendPost(toPost.title)
         setTitle('')
-        setAuthor('')
         setDescription('')
         setOpen(false)
       })
@@ -75,8 +90,12 @@ export const StatusContainer = () => {
   }, [])
 
   const handleDeleteTask = (_id) => {
+    console.log(_id)
+    setActivateDeleteSpinner(true)
+    setCompare_id(_id)
     helpDeleteTypeTasks(`http://localhost:3001/task/${_id}`)
       .then(response => {
+        setActivateDeleteSpinner(false)
         setSendPost(_id)
       })
   }
@@ -93,6 +112,7 @@ export const StatusContainer = () => {
   }, [sendPost, userId])
 
   const handleLogout = () => {
+    setActivateSpinner(true)
     setUser(null)
     const storage = window.localStorage.removeItem('loggedTaskAppUser')
 
@@ -102,6 +122,7 @@ export const StatusContainer = () => {
     setProcess(null)
     setCompleted(null)
     if (!storage) {
+      setActivateSpinner(true)
       navigate('/login', { replace: true })
     }
   }
@@ -125,27 +146,35 @@ export const StatusContainer = () => {
         </h1>
 
         <Button onClick={ handleLogout } variant="contained" color="error">
-          Cerrar sesión
+          { activateSpinner ? <Spinner /> : 'Cerrar sesión' }
         </Button>
       </div>
       <Paper style={{ width: '85vw', height: '85vh', display: 'flex', justifyContent: 'space-around' }}>
         <WaitContainer
+          compare_id={ compare_id }
+          activateDeleteSpinner={ activateDeleteSpinner }
           handleDeleteTask={ handleDeleteTask }
           waiting={ waiting }
           handleClickOpen={ handleClickOpen }
         />
 
         <InProcessContainer
+          compare_id={ compare_id }
+          activateDeleteSpinner={ activateDeleteSpinner }
           handleDeleteTask={ handleDeleteTask }
           process={ process }
           />
 
         <CompletedContainer
+          compare_id={ compare_id }
+          activateDeleteSpinner={ activateDeleteSpinner }
           handleDeleteTask={ handleDeleteTask }
           completed={ completed }
           />
 
         <NewTask
+          errorMessage={ errorMessage }
+          activateCreateTaskSpinner={ activateCreateTaskSpinner }
           handleCreateTask={ handleCreateTask }
           handleChangeType={ handleChangeType }
           open={ open }

@@ -9,8 +9,9 @@ import Typography from '@mui/material/Typography'
 import DeleteIcon from '@mui/icons-material/Delete'
 import DescriptionIcon from '@mui/icons-material/Description'
 import { Link } from 'react-router-dom'
+import { Spinner } from '../General/Spinner'
 
-export const Task = ({ task, handleDeleteTask }) => {
+export const Task = ({ task, handleDeleteTask, activateDeleteSpinner, compare_id }) => {
   return (
     <div>
       <Box sx={{ minWidth: 275 }}>
@@ -26,7 +27,9 @@ export const Task = ({ task, handleDeleteTask }) => {
 
             <CardActions style={{ width: '4vw', display: 'flex', alignItems: 'flex-start', justifyContent: 'center' }}>
               <div style={{ width: '2.5vw', display: 'flex', justifyContent: 'center' }}>
-                <Button onClick={ () => handleDeleteTask(task._id) } size="small"><DeleteIcon /></Button>
+                <Button onClick={ () => handleDeleteTask(task._id) } size="small">
+                  { activateDeleteSpinner && compare_id === task._id ? <Spinner  size={ 15 } /> : <DeleteIcon /> }
+                </Button>
               </div>
 
               <div style={{ width: '2.5vw', display: 'flex', justifyContent: 'center' }}>

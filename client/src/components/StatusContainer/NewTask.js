@@ -8,8 +8,9 @@ import DialogContent from '@mui/material/DialogContent'
 import DialogContentText from '@mui/material/DialogContentText'
 import DialogTitle from '@mui/material/DialogTitle'
 import Grid from '@mui/material/Grid'
+import { Spinner } from '../General/Spinner'
 
-export const NewTask = ({ handleClose, open, handleChangeType, handleCreateTask }) => {
+export const NewTask = ({ handleClose, open, handleChangeType, handleCreateTask, activateCreateTaskSpinner, errorMessage }) => {
   return (
     <div>
       <Dialog open={open} onClose={handleClose}>
@@ -25,7 +26,7 @@ export const NewTask = ({ handleClose, open, handleChangeType, handleCreateTask 
             alignItems="center"
           >
             <Grid style={{ display: 'flex', justifyContent: 'space-around' }} item xs={12}>
-              <Grid item xs={5}>
+              <Grid item xs={8}>
                 <TextField
                   name='title'
                   onChange={ (event) => handleChangeType(event) }
@@ -34,20 +35,6 @@ export const NewTask = ({ handleClose, open, handleChangeType, handleCreateTask 
                   margin="dense"
                   id="title"
                   label="Titulo de la tarea"
-                  type="text"
-                  fullWidth
-                  variant="standard"
-                />
-              </Grid>
-
-              <Grid item xs={5}>
-                <TextField
-                  name='author'
-                  onChange={ (event) => handleChangeType(event) }
-                  style={{ padding: '.5rem' }}
-                  margin="dense"
-                  id="author"
-                  label="Autor de la tarea"
                   type="text"
                   fullWidth
                   variant="standard"
@@ -72,8 +59,13 @@ export const NewTask = ({ handleClose, open, handleChangeType, handleCreateTask 
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Mejor no</Button>
-          <Button onClick={ (event) => handleCreateTask(event) }>Crear tarea</Button>
+          <Button onClick={ (event) => handleCreateTask(event) }>
+            { activateCreateTaskSpinner ? <Spinner size={ 20 } /> : 'Crear tarea' }
+          </Button>
         </DialogActions>
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            { errorMessage ? <h4 style={{ color: 'red' }}>{ errorMessage }</h4> : null }
+          </div>
       </Dialog>
     </div>
   )
