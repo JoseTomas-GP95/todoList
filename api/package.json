@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint . --ext .js --ext .jsx --fix",
+    "start": "node index.js",
     "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
