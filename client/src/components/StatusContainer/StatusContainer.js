@@ -91,7 +91,6 @@ export const StatusContainer = () => {
   }, [])
 
   const handleDeleteTask = (_id) => {
-    console.log(_id)
     setActivateDeleteSpinner(true)
     setCompare_id(_id)
     helpDeleteTypeTasks(`${ currentAddress }/task/${_id}`)
