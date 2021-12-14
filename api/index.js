@@ -3,7 +3,7 @@ require('./mongo')
 const express = require('express')
 const app = express()
 const cors = require('cors')
-/* ------------------------------- CONTROLLERS ------------------------------ */
+/* --------------------- CONTROLLERS -------------------- */
 const getTaskRouter = require('./controllers/tasks/getTasks')
 const getOneTaskRouter = require('./controllers/tasks/getOneTask')
 const postTasksRouter = require('./controllers/tasks/postTasks')
@@ -13,7 +13,7 @@ const postUsersRouter = require('./controllers/users/postUser')
 const loginRouter = require('./controllers/login/loginUser')
 
 const port = process.env.PORT || 3001
-/* ------------------------------- MIDDLEWARE ------------------------------- */
+/* --------------------- MIDDLEWARE --------------------- */
 app.use(express.json())
 app.use(cors())
 app.use('/tasks', getTaskRouter)
