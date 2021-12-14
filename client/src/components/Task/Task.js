@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React from 'react'
 import Box from '@mui/material/Box'
 import Card from '@mui/material/Card'
@@ -10,8 +9,9 @@ import DeleteIcon from '@mui/icons-material/Delete'
 import DescriptionIcon from '@mui/icons-material/Description'
 import { Link } from 'react-router-dom'
 import { Spinner } from '../General/Spinner'
+import PropTypes from 'prop-types'
 
-export const Task = ({ task, handleDeleteTask, activateDeleteSpinner, compare_id }) => {
+export const Task = ({ task, handleDeleteTask, activateDeleteSpinner, compareId }) => {
   return (
     <div>
       <Box sx={{ minWidth: 275 }}>
@@ -28,7 +28,7 @@ export const Task = ({ task, handleDeleteTask, activateDeleteSpinner, compare_id
             <CardActions style={{ width: '4vw', display: 'flex', alignItems: 'flex-start', justifyContent: 'center' }}>
               <div style={{ width: '2.5vw', display: 'flex', justifyContent: 'center' }}>
                 <Button onClick={ () => handleDeleteTask(task._id) } size="small">
-                  { activateDeleteSpinner && compare_id === task._id ? <Spinner  size={ 15 } /> : <DeleteIcon /> }
+                  { activateDeleteSpinner && compareId === task._id ? <Spinner size={ 15 } /> : <DeleteIcon /> }
                 </Button>
               </div>
 
@@ -44,4 +44,11 @@ export const Task = ({ task, handleDeleteTask, activateDeleteSpinner, compare_id
       </Box>
     </div>
   )
+}
+
+Task.propTypes = {
+  task: PropTypes.object.isRequired,
+  handleDeleteTask: PropTypes.func.isRequired,
+  activateDeleteSpinner: PropTypes.bool.isRequired,
+  compareId: PropTypes.string.isRequired
 }

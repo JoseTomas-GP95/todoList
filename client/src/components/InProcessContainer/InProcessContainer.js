@@ -1,11 +1,10 @@
-/* eslint-disable react/react-in-jsx-scope */
-/* eslint-disable react/prop-types */
-// import React from 'react'
+import React from 'react'
 import { Task } from '../Task/Task'
 import { IsEmpty } from '../General/IsEmpty'
 import './css/inProcessContainer.css'
+import PropTypes from 'prop-types'
 
-export const InProcessContainer = ({ process, handleDeleteTask, activateDeleteSpinner, compare_id }) => {
+export const InProcessContainer = ({ process, handleDeleteTask, activateDeleteSpinner, compareId }) => {
   return (
     <div className='inProcessContainer'>
       <div className='inProcessContainer-title'>
@@ -15,11 +14,18 @@ export const InProcessContainer = ({ process, handleDeleteTask, activateDeleteSp
         process.length > 0
           ? process.map(task => (
           <div key={ task._id }>
-            <Task compare_id={ compare_id } activateDeleteSpinner={ activateDeleteSpinner } handleDeleteTask={ handleDeleteTask } task={ task }/>
+            <Task compareId={ compareId } activateDeleteSpinner={ activateDeleteSpinner } handleDeleteTask={ handleDeleteTask } task={ task }/>
           </div>
           ))
           : <IsEmpty />
       }
     </div>
   )
+}
+
+InProcessContainer.propTypes = {
+  process: PropTypes.array,
+  handleDeleteTask: PropTypes.func.isRequired,
+  activateDeleteSpinner: PropTypes.bool.isRequired,
+  compareId: PropTypes.string.isRequired
 }

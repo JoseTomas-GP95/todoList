@@ -1,11 +1,10 @@
-/* eslint-disable react/prop-types */
 import React from 'react'
 import Typography from '@mui/material/Typography'
-// import Button from '@mui/material/Button'
 import Avatar from '@mui/material/Avatar'
 import { OtherUsersCanSee } from './OtherUsersCanSee'
+import PropTypes from 'prop-types'
 
-export const ImageAndUsers = ({ taskData, user }) => {
+export const ImageAndUsers = ({ user }) => {
   return (
     <div style={{ height: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'space-around', alignItems: 'center' }}>
       <div style={{ display: 'flex', justifyContent: 'center' }}>
@@ -23,4 +22,8 @@ export const ImageAndUsers = ({ taskData, user }) => {
       <OtherUsersCanSee />
     </div>
   )
+}
+
+ImageAndUsers.propTypes = {
+  user: PropTypes.array.isRequired
 }

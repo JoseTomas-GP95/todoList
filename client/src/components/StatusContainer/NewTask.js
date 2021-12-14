@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import * as React from 'react'
 import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
@@ -9,6 +8,7 @@ import DialogContentText from '@mui/material/DialogContentText'
 import DialogTitle from '@mui/material/DialogTitle'
 import Grid from '@mui/material/Grid'
 import { Spinner } from '../General/Spinner'
+import PropTypes from 'prop-types'
 
 export const NewTask = ({ handleClose, open, handleChangeType, handleCreateTask, activateCreateTaskSpinner, errorMessage }) => {
   return (
@@ -69,4 +69,13 @@ export const NewTask = ({ handleClose, open, handleChangeType, handleCreateTask,
       </Dialog>
     </div>
   )
+}
+
+NewTask.propTypes = {
+  handleClose: PropTypes.func.isRequired,
+  open: PropTypes.bool.isRequired,
+  handleChangeType: PropTypes.func.isRequired,
+  handleCreateTask: PropTypes.func.isRequired,
+  activateCreateTaskSpinner: PropTypes.bool.isRequired,
+  errorMessage: PropTypes.string.isRequired
 }

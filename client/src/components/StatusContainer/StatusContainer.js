@@ -21,7 +21,7 @@ export const StatusContainer = () => {
   const [activateSpinner, setActivateSpinner] = useState(false)
   const [activateCreateTaskSpinner, setActivateCreateTaskSpinner] = useState(false)
   const [activateDeleteSpinner, setActivateDeleteSpinner] = useState(false)
-  const [compare_id, setCompare_id] = useState('')
+  const [compareId, setCompareId] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
 
   const [title, setTitle] = React.useState('')
@@ -50,14 +50,14 @@ export const StatusContainer = () => {
     event.preventDefault()
     setActivateCreateTaskSpinner(true)
 
-    if(!title || !description) {
+    if (!title || !description) {
       setErrorMessage('Debes llenar todos los datos')
 
       setTimeout(() => {
         setErrorMessage('')
       }, 2000)
       setActivateCreateTaskSpinner(false)
-      return 
+      return
     }
 
     const toPost = {
@@ -70,7 +70,7 @@ export const StatusContainer = () => {
 
     helpPostTask(token, toPost)
       .then(response => {
-      setActivateCreateTaskSpinner(false)
+        setActivateCreateTaskSpinner(false)
         setSendPost(toPost.title)
         setTitle('')
         setDescription('')
@@ -92,8 +92,8 @@ export const StatusContainer = () => {
 
   const handleDeleteTask = (_id) => {
     setActivateDeleteSpinner(true)
-    setCompare_id(_id)
-    helpDeleteTypeTasks(`${ currentAddress }/task/${_id}`)
+    setCompareId(_id)
+    helpDeleteTypeTasks(`${currentAddress}/task/${_id}`)
       .then(response => {
         setActivateDeleteSpinner(false)
         setSendPost(_id)
@@ -101,13 +101,13 @@ export const StatusContainer = () => {
   }
 
   useEffect(() => {
-    helpGetTypeTasks(`${ currentAddress }/tasks/${userId}/waiting`)
+    helpGetTypeTasks(`${currentAddress}/tasks/${userId}/waiting`)
       .then(response => setWaiting(response.data))
 
-    helpGetTypeTasks(`${ currentAddress }/tasks/${userId}/process`)
+    helpGetTypeTasks(`${currentAddress}/tasks/${userId}/process`)
       .then(response => setProcess(response.data))
 
-    helpGetTypeTasks(`${ currentAddress }/tasks/${userId}/completed`)
+    helpGetTypeTasks(`${currentAddress}/tasks/${userId}/completed`)
       .then(response => setCompleted(response.data))
   }, [sendPost, userId])
 
@@ -151,7 +151,7 @@ export const StatusContainer = () => {
       </div>
       <Paper style={{ width: '85vw', height: '85vh', display: 'flex', justifyContent: 'space-around' }}>
         <WaitContainer
-          compare_id={ compare_id }
+          compareId={ compareId }
           activateDeleteSpinner={ activateDeleteSpinner }
           handleDeleteTask={ handleDeleteTask }
           waiting={ waiting }
@@ -159,14 +159,14 @@ export const StatusContainer = () => {
         />
 
         <InProcessContainer
-          compare_id={ compare_id }
+          compareId={ compareId }
           activateDeleteSpinner={ activateDeleteSpinner }
           handleDeleteTask={ handleDeleteTask }
           process={ process }
           />
 
         <CompletedContainer
-          compare_id={ compare_id }
+          compareId={ compareId }
           activateDeleteSpinner={ activateDeleteSpinner }
           handleDeleteTask={ handleDeleteTask }
           completed={ completed }

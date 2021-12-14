@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React, { useState } from 'react'
 import { styled } from '@mui/material/styles'
 import List from '@mui/material/List'
@@ -17,6 +16,7 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
 import Button from '@mui/material/Button'
 import { Link } from 'react-router-dom'
 import './css/task.css'
+import PropTypes from 'prop-types'
 
 const Demo = styled('div')(({ theme }) => ({
   backgroundColor: theme.palette.background.paper
@@ -53,8 +53,8 @@ export const TaskState = ({ taskData, handleSubmit }) => {
                   <ListItem
                     key={ typeState.id }
                     secondaryAction={
-                      <IconButton edge="end" aria-label="delete">
-                        <SendIcon onClick={ (event) => handleSubmit(event, 'state', typeState.id) }/>
+                      <IconButton onClick={ (event) => handleSubmit(event, 'state', typeState.id) } edge="end" aria-label="delete">
+                        <SendIcon />
                       </IconButton>
                     }
                   >
@@ -78,4 +78,9 @@ export const TaskState = ({ taskData, handleSubmit }) => {
       </div>
     </div>
   )
+}
+
+TaskState.propTypes = {
+  taskData: PropTypes.object.isRequired,
+  handleSubmit: PropTypes.func.isRequired
 }

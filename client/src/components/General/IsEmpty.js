@@ -1,9 +1,9 @@
-/* eslint-disable react/prop-types */
 import React from 'react'
 import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
 import Paper from '@mui/material/Paper'
 import Button from '@mui/material/Button'
+import PropTypes from 'prop-types'
 
 export const IsEmpty = ({ waiting, handleClickOpen }) => {
   return (
@@ -34,4 +34,9 @@ export const IsEmpty = ({ waiting, handleClickOpen }) => {
       </Box>
     </div>
   )
+}
+
+IsEmpty.propTypes = {
+  waiting: PropTypes.bool,
+  handleClickOpen: PropTypes.func
 }

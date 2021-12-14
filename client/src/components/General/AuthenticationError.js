@@ -5,8 +5,7 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
 import { Link } from 'react-router-dom'
 
 export const AuthenticationError = () => {
-
-  return(
+  return (
     <div style={{ width: '100vw', height: '100vh', display: 'flex', justifyContent: 'space-around', alignItems: 'center', flexDirection: 'column' }}>
       <div style={{ width: '55vw', display: 'flex', justifyContent: 'space-around', alignItems: 'center' }}>
         <Link to='/login'>

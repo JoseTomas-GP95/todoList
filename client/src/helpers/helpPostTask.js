@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { addressThatIUse } from '../URL/URL'
 const currentAddress = addressThatIUse()
-const URL = `${ currentAddress }/task`
+const URL = `${currentAddress}/task`
 
 export const helpPostTask = (token, post) => {
   const config = {

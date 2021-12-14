@@ -29,7 +29,7 @@ export const TaskDescription = () => {
     }
 
     if (weNeedRenderingData) {
-      helpGetOneTask(`${ currentAddress }/task/${params.taskId}`)
+      helpGetOneTask(`${currentAddress}/task/${params.taskId}`)
         .then(response => setTaskData({
           title: response.data.title,
           description: response.data.description,
@@ -56,14 +56,14 @@ export const TaskDescription = () => {
     if (infoType === 'description') toSend[infoType] = taskData.description
     if (infoType === 'title') toSend[infoType] = taskData.title
     if (infoType === 'state') toSend[infoType] = newState
-    helpPutOneTask(`${ currentAddress }/task/${params.taskId}`, toSend)
+    helpPutOneTask(`${currentAddress}/task/${params.taskId}`, toSend)
       .then(res => setOneTask(res))
   }
 
   return (
     <div style={{ display: 'flex' }}>
       <div style={{ width: '35%', height: '100vh' }}>
-        <ImageAndUsers user={ user } taskData={ taskData }/>
+        <ImageAndUsers user={ user } />
       </div>
       <div style={{ width: '50%', height: '100vh' }}>
         <TitleAndDescription handleSubmit={ handleSubmit } handleChange={ handleChange } taskData={ taskData } />

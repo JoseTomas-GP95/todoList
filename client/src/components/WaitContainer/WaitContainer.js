@@ -1,11 +1,10 @@
-/* eslint-disable react/react-in-jsx-scope */
-/* eslint-disable react/prop-types */
-// import React from 'react'
+import React from 'react'
 import { Task } from '../Task/Task'
 import { AddTask } from '../Task/AddTask'
 import { IsEmpty } from '../General/IsEmpty'
+import PropTypes from 'prop-types'
 
-export const WaitContainer = ({ waiting, handleClickOpen, handleDeleteTask, activateDeleteSpinner, compare_id }) => {
+export const WaitContainer = ({ waiting, handleClickOpen, handleDeleteTask, activateDeleteSpinner, compareId }) => {
   return (
     <div style={{ width: '100%', borderRight: 'solid 1px grey', overflow: 'auto' }}>
       <div style={{ fontSize: '2rem', padding: '1rem', textAlign: 'center', borderBottom: 'solid 1px grey' }}>
@@ -15,7 +14,7 @@ export const WaitContainer = ({ waiting, handleClickOpen, handleDeleteTask, acti
         waiting.length > 0
           ? waiting.map(task => (
           <div key={ task._id }>
-            <Task compare_id={ compare_id } activateDeleteSpinner={ activateDeleteSpinner } handleDeleteTask={ handleDeleteTask } task={ task }/>
+            <Task compareId={ compareId } activateDeleteSpinner={ activateDeleteSpinner } handleDeleteTask={ handleDeleteTask } task={ task }/>
           </div>
           ))
           : <IsEmpty handleClickOpen={ handleClickOpen } waiting={ true }/>
@@ -29,4 +28,12 @@ export const WaitContainer = ({ waiting, handleClickOpen, handleDeleteTask, acti
 
     </div>
   )
+}
+
+WaitContainer.propTypes = {
+  waiting: PropTypes.array.isRequired,
+  handleDeleteTask: PropTypes.func.isRequired,
+  activateDeleteSpinner: PropTypes.bool.isRequired,
+  compareId: PropTypes.string.isRequired,
+  handleClickOpen: PropTypes.func.isRequired
 }

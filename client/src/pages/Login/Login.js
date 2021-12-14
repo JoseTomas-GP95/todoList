@@ -1,10 +1,10 @@
-/* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react'
 import { Button, CssBaseline, TextField, Link, Grid, Typography } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import { helpUserLogin } from '../../helpers/helpUserLogin'
 import { useNavigate } from 'react-router-dom'
 import { Spinner } from '../../components/General/Spinner'
+import PropTypes from 'prop-types'
 
 const useStyles = styled(theme => ({
   root: {
@@ -25,7 +25,7 @@ const useStyles = styled(theme => ({
   }
 }))
 
-export const Login = ({ ...props }) => {
+export const Login = ({ user = {}, setUser, ...props }) => {
   const { root, paper, form, submit } = useStyles(props)
   const [activateSpinner, setActivateSpinner] = useState(false)
   const [username, setUsername] = useState('')
@@ -57,7 +57,7 @@ export const Login = ({ ...props }) => {
         window.localStorage.setItem(
           'loggedTaskAppUser', JSON.stringify(user)
         )
-        props.setUser(user)
+        setUser(user)
 
         if (user) {
           navigate('/workspace', { replace: true })
@@ -72,6 +72,7 @@ export const Login = ({ ...props }) => {
         setTimeout(() => {
           setErrorMessage('')
         }, 2000)
+        console.log(error)
       })
   }
 
@@ -80,8 +81,10 @@ export const Login = ({ ...props }) => {
 
     if (loggedUserJSON) {
       const userParse = JSON.parse(loggedUserJSON)
-      props.setUser(userParse)
+      setUser(userParse)
     }
+
+    return () => {}
   }, [])
 
   return (
@@ -148,4 +151,9 @@ export const Login = ({ ...props }) => {
   </div>
 
   )
+}
+
+Login.propTypes = {
+  user: PropTypes.object.isRequired,
+  setUser: PropTypes.func.isRequired
 }

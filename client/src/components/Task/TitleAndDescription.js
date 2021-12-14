@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React, { useState } from 'react'
 import Typography from '@mui/material/Typography'
 import CreateIcon from '@mui/icons-material/Create'
@@ -6,6 +5,7 @@ import SaveIcon from '@mui/icons-material/Save'
 import IconButton from '@mui/material/IconButton'
 import TextField from '@mui/material/TextField'
 import './css/task.css'
+import PropTypes from 'prop-types'
 
 export const TitleAndDescription = ({ taskData, handleChange, handleSubmit }) => {
   const [titleToEdit, setTitleToEdit] = useState({
@@ -17,6 +17,23 @@ export const TitleAndDescription = ({ taskData, handleChange, handleSubmit }) =>
     descriptionEditingIsActivated: false,
     inputDescription: ''
   })
+
+  const handlePrepareStateTitleAndSubmit = (event, boolEditTitle) => {
+    setTitleToEdit({
+      ...titleToEdit,
+      titleEditingIsActivated: boolEditTitle
+    })
+
+    handleSubmit(event, 'title')
+  }
+
+  const handlePrepareStateDescriptionAndSubmit = () => {
+    setDescriptionToEdit({
+      ...descriptionToEdit,
+      descriptionEditingIsActivated: false
+    })
+    handleSubmit(event, 'description')
+  }
 
   return (
     <div className='titleAndDescription-container'>
@@ -32,8 +49,8 @@ export const TitleAndDescription = ({ taskData, handleChange, handleSubmit }) =>
                 defaultValue={ taskData.title }
                 variant="standard"
               />
-              <IconButton onClick={() => setTitleToEdit({ ...titleToEdit, titleEditingIsActivated: false })}>
-                <SaveIcon onClick={ (event) => handleSubmit(event, 'title') } />
+              <IconButton onClick={(event) => handlePrepareStateTitleAndSubmit(event, false)}>
+                <SaveIcon />
               </IconButton>
             </>
             : <>
@@ -59,8 +76,8 @@ export const TitleAndDescription = ({ taskData, handleChange, handleSubmit }) =>
                 defaultValue={ taskData.description }
               />
 
-              <IconButton onClick={() => setDescriptionToEdit({ ...descriptionToEdit, descriptionEditingIsActivated: false })}>
-                <SaveIcon onClick={ (event) => handleSubmit(event, 'description') }/>
+              <IconButton onClick={(event) => handlePrepareStateDescriptionAndSubmit(event)}>
+                <SaveIcon />
               </IconButton>
             </>
 
@@ -79,4 +96,10 @@ export const TitleAndDescription = ({ taskData, handleChange, handleSubmit }) =>
       <i>En el futuro, incorporamos comentarios</i>
     </div>
   )
+}
+
+TitleAndDescription.propTypes = {
+  taskData: PropTypes.object.isRequired,
+  handleChange: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired
 }

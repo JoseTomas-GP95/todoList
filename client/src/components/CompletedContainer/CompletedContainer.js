@@ -1,11 +1,10 @@
-/* eslint-disable react/prop-types */
 import React from 'react'
 import { Task } from '../Task/Task'
 import { IsEmpty } from '../General/IsEmpty'
 import './css/completedContainer.css'
+import PropTypes from 'prop-types'
 
-// eslint-disable-next-line react/prop-types
-export const CompletedContainer = ({ completed, handleDeleteTask, activateDeleteSpinner, compare_id }) => {
+export const CompletedContainer = ({ completed, handleDeleteTask, activateDeleteSpinner, compareId }) => {
   return (
     <div className='completedContainer'>
 
@@ -16,11 +15,18 @@ export const CompletedContainer = ({ completed, handleDeleteTask, activateDelete
         completed.length > 0
           ? completed.map(task => (
           <div key={ task._id }>
-            <Task compare_id={ compare_id } activateDeleteSpinner={ activateDeleteSpinner } handleDeleteTask={ handleDeleteTask } task={ task }/>
+            <Task compareId={ compareId } activateDeleteSpinner={ activateDeleteSpinner } handleDeleteTask={ handleDeleteTask } task={ task }/>
           </div>
           ))
           : <IsEmpty />
       }
     </div>
   )
+}
+
+CompletedContainer.propTypes = {
+  completed: PropTypes.arrayOf(Object).isRequired,
+  handleDeleteTask: PropTypes.func.isRequired,
+  activateDeleteSpinner: PropTypes.bool.isRequired,
+  compareId: PropTypes.string.isRequired
 }

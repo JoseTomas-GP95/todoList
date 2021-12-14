@@ -9,25 +9,21 @@ import { Login } from './pages/Login/Login'
 import { Register } from './pages/Register/Register'
 import './App.css'
 import { AuthenticationError } from './components/General/AuthenticationError'
-import { addressThatIUse } from './URL/URL'
 
 function App () {
-  const [user, setUser] = useState(null)
+  const [user, setUser] = useState({})
 
   useEffect(() => {
     setUser(window.localStorage.getItem('loggedTaskAppUser'))
+
+    return () => {}
   }, [])
-
-
-  console.log(process.env.NODE_ENV, 'process.env.NODE_ENV')
-  console.log(addressThatIUse(), 'función')
-  
 
   return (
     <Routes>
 
-      { user 
-      
+      { user
+
         ? <>
             <Route
               path="/workspace"
@@ -36,7 +32,7 @@ function App () {
                   <StatusContainer />
                 </div>
               }
-            /> 
+            />
 
             <Route path="/task/:taskId" element={ <TaskDescription/> } />
 
@@ -60,8 +56,8 @@ function App () {
             />
         </>
 
-        } 
-      
+        }
+
       <Route path='/login' element={<Login setUser={ setUser } user={ user }/>} />
       <Route path='/' element={<Register />} />
     </Routes>

@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Button, CssBaseline, TextField, Link, Grid, Typography, Container } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import { helpCreateUser } from '../../helpers/helpCreateUser'
 import { useNavigate } from 'react-router-dom'
 import { Spinner } from '../../components/General/Spinner'
+import PropTypes from 'prop-types'
 
 const useStyles = styled(theme => ({
   paper: {
@@ -21,7 +22,6 @@ const useStyles = styled(theme => ({
   }
 }))
 
-// eslint-disable-next-line react/prop-types
 export const Register = ({ children, ...props }) => {
   const { paper, form, submit } = useStyles(props)
   const navigate = useNavigate()
@@ -48,6 +48,10 @@ export const Register = ({ children, ...props }) => {
     }
   }
 
+  useEffect(() => {
+    return () => {}
+  }, [])
+
   const handleCreateUser = (event) => {
     event.preventDefault()
     setActivateSpinner(true)
@@ -60,7 +64,7 @@ export const Register = ({ children, ...props }) => {
     }
 
     // Validacion
-    if(!name || !surname || !username || !password) {
+    if (!name || !surname || !username || !password) {
       setMessage(<h4 style={{ color: 'red' }}>Todos los campos son obligatorios para llenar</h4>)
       setActivateSpinner(false)
 
@@ -77,14 +81,14 @@ export const Register = ({ children, ...props }) => {
           navigate('/login', { replace: true })
           setMessage('')
         }, 900)
-        
+
         setName('')
         setSurname('')
         setUsername('')
         setPassword('')
         setActivateSpinner(false)
       }).catch(error => {
-
+        console.log(error)
       })
   }
 
@@ -154,7 +158,7 @@ export const Register = ({ children, ...props }) => {
                 />
               </Grid>
             </Grid>
-            
+
             <Button
               type="submit"
               fullWidth
@@ -166,7 +170,7 @@ export const Register = ({ children, ...props }) => {
             </Button>
 
             {
-              message ? message : null
+              message || null
             }
 
             <Grid container justify="flex-end">
@@ -181,4 +185,8 @@ export const Register = ({ children, ...props }) => {
       </Container>
     </div>
   )
+}
+
+Register.propTypes = {
+  children: PropTypes.any
 }
