@@ -9,6 +9,7 @@ import { Login } from './pages/Login/Login'
 import { Register } from './pages/Register/Register'
 import './App.css'
 import { AuthenticationError } from './components/General/AuthenticationError'
+import { addressThatIUse } from './URL/URL'
 
 function App () {
   const [user, setUser] = useState(null)
@@ -16,6 +17,11 @@ function App () {
   useEffect(() => {
     setUser(window.localStorage.getItem('loggedTaskAppUser'))
   }, [])
+
+
+  console.log(process.env, 'process.env.NODE_ENV')
+  console.log(addressThatIUse(), 'función')
+  
 
   return (
     <Routes>

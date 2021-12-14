@@ -1,5 +1,8 @@
 import axios from 'axios'
-const URL = 'http://localhost:3001/user'
+import { addressThatIUse } from '../URL/URL'
+const currentAddress = addressThatIUse()
+
+const URL = `${ currentAddress }/user`
 
 export const helpCreateUser = (userObject) => {
   return axios

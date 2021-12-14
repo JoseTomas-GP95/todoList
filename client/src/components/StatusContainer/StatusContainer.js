@@ -11,6 +11,7 @@ import { WaitContainer } from '../WaitContainer/WaitContainer'
 import Button from '@mui/material/Button'
 import { useNavigate } from 'react-router-dom'
 import { Spinner } from '../General/Spinner'
+import { addressThatIUse } from '../../URL/URL'
 
 export const StatusContainer = () => {
   const [waiting, setWaiting] = useState([])
@@ -23,13 +24,13 @@ export const StatusContainer = () => {
   const [compare_id, setCompare_id] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
 
-  
   const [title, setTitle] = React.useState('')
   const [description, setDescription] = React.useState('')
   const [sendPost, setSendPost] = React.useState('')
   const [user, setUser] = React.useState('')
   const [userId, setUserId] = React.useState('')
   const navigate = useNavigate()
+  const currentAddress = addressThatIUse()
   /* ------------------- CREAR STATES DE LA NUEVA TAREA AQUI ------------------ */
   const handleClickOpen = () => {
     setOpen(true)
@@ -93,7 +94,7 @@ export const StatusContainer = () => {
     console.log(_id)
     setActivateDeleteSpinner(true)
     setCompare_id(_id)
-    helpDeleteTypeTasks(`http://localhost:3001/task/${_id}`)
+    helpDeleteTypeTasks(`${ currentAddress }/task/${_id}`)
       .then(response => {
         setActivateDeleteSpinner(false)
         setSendPost(_id)
@@ -101,13 +102,13 @@ export const StatusContainer = () => {
   }
 
   useEffect(() => {
-    helpGetTypeTasks(`http://localhost:3001/tasks/${userId}/waiting`)
+    helpGetTypeTasks(`${ currentAddress }/tasks/${userId}/waiting`)
       .then(response => setWaiting(response.data))
 
-    helpGetTypeTasks(`http://localhost:3001/tasks/${userId}/process`)
+    helpGetTypeTasks(`${ currentAddress }/tasks/${userId}/process`)
       .then(response => setProcess(response.data))
 
-    helpGetTypeTasks(`http://localhost:3001/tasks/${userId}/completed`)
+    helpGetTypeTasks(`${ currentAddress }/tasks/${userId}/completed`)
       .then(response => setCompleted(response.data))
   }, [sendPost, userId])
 

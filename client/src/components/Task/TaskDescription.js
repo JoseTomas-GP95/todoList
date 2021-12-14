@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom'
 import { helpGetOneTask } from '../../helpers/helpGetOneTask'
 import { helpPutOneTask } from '../../helpers/helpPutOneTask'
 import { TaskState } from './TaskState'
+import { addressThatIUse } from '../../URL/URL'
 
 export const TaskDescription = () => {
   const [taskData, setTaskData] = useState({
@@ -16,7 +17,7 @@ export const TaskDescription = () => {
   const [weNeedRenderingData, setWeNeedRenderingData] = useState(true)
   const [oneTask, setOneTask] = useState([])
   const [user, setUser] = useState([])
-
+  const currentAddress = addressThatIUse()
   const params = useParams()
 
   useEffect(() => {
@@ -28,7 +29,7 @@ export const TaskDescription = () => {
     }
 
     if (weNeedRenderingData) {
-      helpGetOneTask(`http://localhost:3001/task/${params.taskId}`)
+      helpGetOneTask(`${ currentAddress }/task/${params.taskId}`)
         .then(response => setTaskData({
           title: response.data.title,
           description: response.data.description,
@@ -55,7 +56,7 @@ export const TaskDescription = () => {
     if (infoType === 'description') toSend[infoType] = taskData.description
     if (infoType === 'title') toSend[infoType] = taskData.title
     if (infoType === 'state') toSend[infoType] = newState
-    helpPutOneTask(`http://localhost:3001/task/${params.taskId}`, toSend)
+    helpPutOneTask(`${ currentAddress }/task/${params.taskId}`, toSend)
       .then(res => setOneTask(res))
   }
 

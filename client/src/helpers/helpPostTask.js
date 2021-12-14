@@ -1,5 +1,7 @@
 import axios from 'axios'
-const URL = 'http://localhost:3001/task'
+import { addressThatIUse } from '../URL/URL'
+const currentAddress = addressThatIUse()
+const URL = `${ currentAddress }/task`
 
 export const helpPostTask = (token, post) => {
   const config = {
